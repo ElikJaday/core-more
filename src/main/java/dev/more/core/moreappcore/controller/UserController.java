@@ -32,11 +32,12 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserEntity> getAllUser(@PathVariable("id") long id, @RequestBody UserEntity userEntity) {
+    public ResponseEntity<UserEntity> updateById(@PathVariable("id") long id, @RequestBody UserEntity userEntity) {
         UserEntity entity = userService.findById(id);
         entity.setNickName(userEntity.getNickName());
         entity.setUserPhone(userEntity.getUserPhone());
         entity.setUserName(userEntity.getUserName());
+        entity.setUserType(userEntity.getUserType());
         return new ResponseEntity<>(userService.createUser(entity), HttpStatus.OK);
     }
 

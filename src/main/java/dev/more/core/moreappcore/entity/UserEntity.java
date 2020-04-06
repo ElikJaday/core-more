@@ -6,8 +6,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "User_entity")
+@Table(name = "User_entity",
+uniqueConstraints = {@UniqueConstraint(columnNames={"user_id","user_uid"})})
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
@@ -17,16 +19,27 @@ public class UserEntity {
     @Column(name = "user_name")
     private String userName;
     private String userPhone;
+    @Enumerated(EnumType.ORDINAL)
+    private UserType userType;
     @CreationTimestamp
-    private Date userCreated;
+    @Column(name = "user_uid")
+    private Date uid;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride( name = "pic", column = @Column(length = 800000000))
+    })
+    private UserImage userImage;
 
     public UserEntity() {
     }
 
-    public UserEntity(String nickName, String userName, String userPhone) {
+    public UserEntity(String nickName, String userName, String userPhone, UserType userType, UserImage userImage) {
         this.nickName = nickName;
         this.userName = userName;
         this.userPhone = userPhone;
+        this.userType = userType;
+        this.userImage = userImage;
     }
 
     public Long getUserId() {
@@ -61,12 +74,28 @@ public class UserEntity {
         this.userPhone = userPhone;
     }
 
-    public Date getUserCreated() {
-        return userCreated;
+    public Long getUid() {
+        return uid.getTime();
     }
 
-    public void setUserCreated(Date userCreated) {
-        this.userCreated = userCreated;
+    public void setUid(Date uid) {
+        this.uid = uid;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public UserImage getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(UserImage userImage) {
+        this.userImage = userImage;
     }
 
     @Override
@@ -76,7 +105,8 @@ public class UserEntity {
                 ", nickName='" + nickName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userPhone='" + userPhone + '\'' +
-                ", userCreated=" + userCreated +
+                ", userType=" + userType +
+                ", userCreated=" + uid +
                 '}';
     }
 }
