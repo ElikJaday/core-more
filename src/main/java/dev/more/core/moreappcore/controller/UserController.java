@@ -27,8 +27,13 @@ public class UserController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<UserEntity> getAllUser(@PathVariable("id") long id) {
+    public ResponseEntity<UserEntity> findById(@PathVariable("id") long id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/findByNickName/{nickName}")
+    public ResponseEntity<List<UserEntity>> findByNickName(@PathVariable("nickName") String nickName) {
+        return new ResponseEntity<>(userService.findByNickName(nickName), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

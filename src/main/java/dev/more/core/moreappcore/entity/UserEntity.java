@@ -6,15 +6,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "User_entity",
-uniqueConstraints = {@UniqueConstraint(columnNames={"user_id","user_uid"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"user_id","user_uid"})})
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long userId;
-    @Column(name = "user_nick_name")
     private String nickName;
     @Column(name = "user_name")
     private String userName;

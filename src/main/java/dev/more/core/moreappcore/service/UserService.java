@@ -35,6 +35,10 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("user not found by Id : " + id));
     }
 
+    public List<UserEntity> findByNickName(String nickName) {
+        return userRepository.findByNickName(nickName);
+    }
+
     public void deleteById(Long id){
         userRepository.deleteById(id);
     }

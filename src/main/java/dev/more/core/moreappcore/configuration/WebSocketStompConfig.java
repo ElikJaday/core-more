@@ -14,14 +14,12 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/example-endpoint").withSockJS();
+        registry.addEndpoint("/connect").withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic", "/queue", "/exchange");
-//        config.enableStompBrokerRelay("/topic", "/queue", "/exchange"); // Uncomment for external message broker (ActiveMQ, RabbitMQ)
-        registry.setApplicationDestinationPrefixes("/topic", "/queue"); // prefix in client queries
+        registry.enableSimpleBroker("/chat", "/queue", "/exchange");
         registry.setUserDestinationPrefix("/user");
     }
 }
