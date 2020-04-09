@@ -1,7 +1,8 @@
 package dev.more.core.moreappcore.controller;
 
+import com.google.gson.Gson;
+import dev.more.core.moreappcore.CreateRoom;
 import dev.more.core.moreappcore.service.ChatRoomService;
-import dev.more.core.moreappcore.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 class SocketController {
+
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -24,10 +26,10 @@ class SocketController {
     }
 
 
-    @MessageMapping("/create-room")
-    public void createRoom(String inputMessage) {
-      //  String payload = JsonUtils.toJson(chatRoomService.createRoom());
-      //  simpMessagingTemplate.convertAndSend();
+    @MessageMapping("/create-chat")
+    public void createRoom(String json) {
+        CreateRoom room = new Gson().fromJson(json, CreateRoom.class);
+        
     }
 
 

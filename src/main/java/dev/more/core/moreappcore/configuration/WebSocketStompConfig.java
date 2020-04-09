@@ -22,4 +22,5 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/chat", "/queue", "/exchange");
         registry.setUserDestinationPrefix("/user");
     }
+
 }
